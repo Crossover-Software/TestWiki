@@ -1,0 +1,158 @@
+
+<!DOCTYPE html>
+
+<html lang="ita">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>&lt;no title&gt; &#8212; TestDocumentation 0.0.1 documentation</title>
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <p>#DEPLOY</p>
+<p>Questa sezione mostrerà come svolgere una procedura di deploy completa.</p>
+<p>===== Preparazione Lattepanda =====</p>
+<dl class="simple">
+<dt>Procurarsi:</dt><dd><ul class="simple">
+<li><p>USB con l'immagine di octopus</p></li>
+<li><p>USB con una distribuzione di linux live</p></li>
+<li><p>Una tastiera</p></li>
+<li><p>Un alimentatore</p></li>
+<li><p>Cavo HDMI</p></li>
+<li><p>Cavo di rete</p></li>
+</ul>
+</dd>
+</dl>
+<p>A questo punto colleghiamo il tutto (nell'uscita USB 2.0 è preferibile collegarci l'USB con l'immagine di octopus) e durante l'avvio accediamo al bios.(Ctrl + Alt + Canc )</p>
+<p>Recarsi nella sezione Boot e portare il valore di &quot;Machine Status AC/Battery In&quot; su Power On in modo da far avviare il Lattepanda in autonomia dopo averlo collegato alla corrente.
+Prima di salvare e chiudere controllare che la boot Option #1 sia la nostra USB poi procedere.</p>
+<p>Avviamo preferibilmente l'immagine nella versione solo terminale per velocizzare il processo selezionando la versione x.</p>
+<p>===== Montaggio dell'immagine di Octopus sul Lattepanda =====</p>
+<p>Scollegare e ricollegare la USB con l'immagine di octopus e digitare il comando 'dmesg'.
+Il risultato che occorre a noi sta nell'ultima riga e solitamente è sdb1 che rappresenta la nostra chiavetta con l'immagine octopus.
+Procedere quindi con il comando &lt;code&gt;mount /dev/sdb1/  /mnt/ &lt;/code&gt; Controllare che nella cartella mnt sia presente la cartella octopus.2020_12_07.img.gz.
+&lt;code&gt;cd /mnt/
+ls&lt;/code&gt;
+Fatto ciò digitiamo il comando &lt;code&gt;gunzip -c /mnt/octopus.2020_12_07.img.gz | dd of=/dev/mmcblk status=progres&lt;/code&gt; Attendiamo il completamento (Tempo stimato: 40 min).
+Terminato il tutto arrestiamo la macchina ( c'è la possibilità che non si riesca ad arrestare nel modo più sicuro in quel caso agire forzatamente staccando l'alimentazione)</p>
+<p>===== Scheda di rete Octopus  =====</p>
+<p>Ora non avremo più bisogno delle USB con le immagini e se tutti i passaggi precedenti sono stati eseguiti con esattezza il Lattepanda si avvierà con l'immagine di Octopus installata.
+Il primo passaggio è sistemare la scheda di rete quindi collegare l'uscita ethernet al nostro pc e seguire questi comandi:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>&lt;code&gt; cd /etc/network/interfaces.d&lt;/code&gt;</p></li>
+<li><p>&lt;code&gt;ip a &lt;/code&gt;L'immagine di octopus ha una scheda di rete che non corrisponde a quella del Lattepanda quindi bisogna sostituire con quella attuale mostrata attraverso il comando ip a -&gt;</p></li>
+<li><p>&lt;code&gt;mv ifcfg-(old) ifcfg-(new)&lt;/code&gt; Al suo interno modificare tutti i valori della vecchia scheda di rete con quella nuova che visualiziamo nel titolo del cat -&gt;</p></li>
+<li><p>&lt;code&gt;cat ifcfg-(new) &lt;/code&gt; Il comando seguente potrebbe essere necessario eseguirlo due volte -&gt;</p></li>
+<li><p>&lt;code&gt;ifdown enx00... &amp;&amp; ifup enx00...&lt;/code&gt;</p></li>
+<li><p>&lt;code&gt;reboot&lt;/code&gt;</p></li>
+</ul>
+<p>===== Deploy della versione aggiornata  =====</p>
+</div></blockquote>
+<p>Dopo il reboot dobbiamo usare il nostro pc per deployare la versione aggiornata di octopus.
+Per prima cosa dobbiamo andare in Impostazioni -&gt; Network -&gt; Impostazioni -&gt; IPv4
+Da qui dobbiamo cambiare il metodo  in manuale e inserire un IP appartenente alla stessa sottorete dell'octopus che di default ha l'IP 172.16.0.199.
+Il primo passaggio è accettare la fingerprint del Lattepanda nei known hosts del nostro pc attraverso questo comando
+&lt;code&gt;ssh-keyscan -H (IP del Lattepanda) &gt;&gt; ~/.ssh/known_hosts &lt;/code&gt;
+Recarsi quindi nella directory master del nostro progetto e eseguire il comando:
+&lt;code&gt;./deploy_x86.sh CSW0ct0pus1557 (IP della scheda di rete del Lattepanda)  22 &lt;/code&gt;
+A questo punto eseguiamo il reboot del Lattepanda.</p>
+<p>===== Migrate e Seed =====
+Il primo passo è recarsi nella directory esatta:</p>
+<blockquote>
+<div><p>&lt;code&gt; cd /usr/local/crossover_octopus_core/webserver/www &lt;/code&gt;</p>
+</div></blockquote>
+<dl class="simple">
+<dt>Da qui possiamo eseguire i comandi per i migrate e i seed:</dt><dd><p>&lt;code&gt;bin/cake deploy migrate --createdb --coreplugins</p>
+</dd>
+</dl>
+<p>bin/cake deploy seed --coreplugins&lt;/code&gt;
+In questo caso ho fatto il migrate e il seed solo dei plugins necessari al funzionamento del nostro sistema nel caso volessimo aggiungere dei pugins al di fuori di quelli core possiamo aggiungere in fondo al comando - -add (nomedelplugin) , (nomedelplugin)... esempio:
+&lt;code&gt;bin/cake deploy migrate --createdb --add PipelineIndustry
+bin/cake deploy seed --add PipelineIndustry&lt;/code&gt;</p>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">TestDocumentation</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2021, DavideCavagnini.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.4.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/deploy.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
