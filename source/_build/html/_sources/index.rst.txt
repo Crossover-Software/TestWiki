@@ -10,7 +10,7 @@ Welcome to TestDocumentation's documentation!
    :maxdepth: 2
    :caption: Contents:
 
-
+   pages/Deploy
 
 Indices and tables
 ==================
