@@ -57,16 +57,12 @@ Prima di salvare e chiudere controllare che la boot Option #1 sia la nostra USB 
 <p>Scollegare e ricollegare la USB con l'immagine di octopus e digitare il comando 'dmesg'.
 Il risultato che occorre a noi sta nell'ultima riga e solitamente è sdb1 che rappresenta la nostra chiavetta con l'immagine octopus.
 Procedere quindi con il comando:</p>
-<blockquote>
-<div><p><code class="docutils literal notranslate"><span class="pre">mount</span> <span class="pre">/dev/sdb1/</span>&#160; <span class="pre">/mnt/</span></code></p>
-</div></blockquote>
-<dl>
-<dt>Controllare che nella cartella mnt sia presente la cartella octopus.2020_12_07.img.gz.</dt><dd><p><code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">/mnt/</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">mount</span> <span class="pre">/dev/sdb1/</span>&#160; <span class="pre">/mnt/</span></code></p>
+<p>Controllare che nella cartella mnt sia presente la cartella octopus.2020_12_07.img.gz.</p>
+<p><code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">/mnt/</span></code></p>
 <p><code class="docutils literal notranslate"><span class="pre">ls</span></code></p>
-</dd>
-<dt>Fatto ciò digitiamo il comando:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">gunzip</span> <span class="pre">-c</span> <span class="pre">/mnt/octopus.2020_12_07.img.gz</span> <span class="pre">|</span> <span class="pre">dd</span> <span class="pre">of=/dev/mmcblk</span> <span class="pre">status=progres</span></code></p>
-</dd>
-</dl>
+<p>Fatto ciò digitiamo il comando:</p>
+<p><code class="docutils literal notranslate"><span class="pre">gunzip</span> <span class="pre">-c</span> <span class="pre">/mnt/octopus.2020_12_07.img.gz</span> <span class="pre">|</span> <span class="pre">dd</span> <span class="pre">of=/dev/mmcblk</span> <span class="pre">status=progres</span></code></p>
 <p>Attendiamo il completamento (Tempo stimato: 40 min).
 Terminato il tutto arrestiamo la macchina ( c'è la possibilità che non si riesca ad arrestare nel modo più sicuro in quel caso agire forzatamente staccando l'alimentazione)</p>
 </div>

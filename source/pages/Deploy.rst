@@ -1,5 +1,5 @@
 
-
+=============================================
 DEPLOY
 =============================================
 Questa sezione mostrerà come svolgere una procedura di deploy completa.
@@ -30,13 +30,19 @@ Montaggio dell'immagine di Octopus sul Lattepanda
 Scollegare e ricollegare la USB con l'immagine di octopus e digitare il comando 'dmesg'.
 Il risultato che occorre a noi sta nell'ultima riga e solitamente è sdb1 che rappresenta la nostra chiavetta con l'immagine octopus.
 Procedere quindi con il comando:
- ``mount /dev/sdb1/  /mnt/``
-Controllare che nella cartella mnt sia presente la cartella octopus.2020_12_07.img.gz.
- ``cd /mnt/``
 
- ``ls``
+``mount /dev/sdb1/  /mnt/``
+
+Controllare che nella cartella mnt sia presente la cartella octopus.2020_12_07.img.gz.
+
+``cd /mnt/``
+
+``ls``
+
 Fatto ciò digitiamo il comando:
- ``gunzip -c /mnt/octopus.2020_12_07.img.gz | dd of=/dev/mmcblk status=progres``
+
+``gunzip -c /mnt/octopus.2020_12_07.img.gz | dd of=/dev/mmcblk status=progres``
+
 Attendiamo il completamento (Tempo stimato: 40 min).
 Terminato il tutto arrestiamo la macchina ( c'è la possibilità che non si riesca ad arrestare nel modo più sicuro in quel caso agire forzatamente staccando l'alimentazione) 
 
