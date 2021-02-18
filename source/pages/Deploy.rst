@@ -23,9 +23,9 @@ Prima di salvare e chiudere controllare che la boot Option #1 sia la nostra USB 
 
 Avviamo preferibilmente l'immagine nella versione solo terminale per velocizzare il processo selezionando la versione x.
 
-----------------------------------------------
+---------------------------------------------------
 Montaggio dell'immagine di Octopus sul Lattepanda
-----------------------------------------------
+---------------------------------------------------
 
 Scollegare e ricollegare la USB con l'immagine di octopus e digitare il comando 'dmesg'.
 Il risultato che occorre a noi sta nell'ultima riga e solitamente è sdb1 che rappresenta la nostra chiavetta con l'immagine octopus.
@@ -41,7 +41,7 @@ Controllare che nella cartella mnt sia presente la cartella octopus.2020_12_07.i
 
 Fatto ciò digitiamo il comando:
 
-``gunzip -c /mnt/octopus.2020_12_07.img.gz | dd of=/dev/mmcblk status=progres``
+``sudo gunzip -c /mnt/octopus.2020_12_07.img.gz | sudo dd of=/dev/mmcblk0 status=progres``
 
 Attendiamo il completamento (Tempo stimato: 40 min).
 Terminato il tutto arrestiamo la macchina ( c'è la possibilità che non si riesca ad arrestare nel modo più sicuro in quel caso agire forzatamente staccando l'alimentazione) 
@@ -60,7 +60,7 @@ L'immagine di octopus ha una scheda di rete che non corrisponde a quella del Lat
 
 Al suo interno modificare tutti i valori della vecchia scheda di rete con quella nuova che visualiziamo nel titolo del nano
 
-  ``nano ifcfg-(new)``
+``nano ifcfg-(new)``
   
 Il comando seguente potrebbe essere necessario eseguirlo due volte:
 
@@ -68,9 +68,9 @@ Il comando seguente potrebbe essere necessario eseguirlo due volte:
 
 ``reboot``
 
----------------------------------------------
+---------------------------------------------------
 Deploy della versione aggiornata
----------------------------------------------
+---------------------------------------------------
 
 Dopo il reboot dobbiamo usare il nostro pc per deployare la versione aggiornata di octopus.
 Per prima cosa dobbiamo andare in Impostazioni -> Network -> Impostazioni -> IPv4
@@ -85,9 +85,9 @@ Recarsi quindi nella directory master del nostro progetto e eseguire il comando:
 
 A questo punto eseguiamo il reboot del Lattepanda.
 
---------------------------------------------
+---------------------------------------------------
 Migrate e Seed
---------------------------------------------
+---------------------------------------------------
 
 Il primo passo è recarsi nella directory esatta:
 

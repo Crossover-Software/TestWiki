@@ -1,23 +1,23 @@
 
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-<html lang="ita">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ita">
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>DEPLOY &#8212; TestDocumentation 0.0.1 documentation</title>
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
-    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/doctools.js"></script>
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="prev" title="Welcome to TestDocumentation&#39;s documentation!" href="../index.html" />
    
   <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
-  
   
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
@@ -27,24 +27,22 @@
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          
-
           <div class="body" role="main">
             
   <div class="section" id="deploy">
 <h1>DEPLOY<a class="headerlink" href="#deploy" title="Permalink to this headline">¶</a></h1>
 <p>Questa sezione mostrerà come svolgere una procedura di deploy completa.</p>
-</div>
 <div class="section" id="preparazione-lattepanda">
-<h1>Preparazione Lattepanda<a class="headerlink" href="#preparazione-lattepanda" title="Permalink to this headline">¶</a></h1>
-<dl class="simple">
-<dt>Procurarsi:</dt><dd><ul class="simple">
-<li><p>USB con l'immagine di octopus</p></li>
-<li><p>USB con una distribuzione di linux live</p></li>
-<li><p>Una tastiera</p></li>
-<li><p>Un alimentatore</p></li>
-<li><p>Cavo HDMI</p></li>
-<li><p>Cavo di rete</p></li>
+<h2>Preparazione Lattepanda<a class="headerlink" href="#preparazione-lattepanda" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt>Procurarsi:</dt>
+<dd><ul class="first last simple">
+<li>USB con l'immagine di octopus</li>
+<li>USB con una distribuzione di linux live</li>
+<li>Una tastiera</li>
+<li>Un alimentatore</li>
+<li>Cavo HDMI</li>
+<li>Cavo di rete</li>
 </ul>
 </dd>
 </dl>
@@ -52,45 +50,65 @@
 <p>Recarsi nella sezione Boot e portare il valore di &quot;Machine Status AC/Battery In&quot; su Power On in modo da far avviare il Lattepanda in autonomia dopo averlo collegato alla corrente.
 Prima di salvare e chiudere controllare che la boot Option #1 sia la nostra USB poi procedere.</p>
 <p>Avviamo preferibilmente l'immagine nella versione solo terminale per velocizzare il processo selezionando la versione x.</p>
-<p>===== Montaggio dell'immagine di Octopus sul Lattepanda =====</p>
+</div>
+<div class="section" id="montaggio-dell-immagine-di-octopus-sul-lattepanda">
+<h2>Montaggio dell'immagine di Octopus sul Lattepanda<a class="headerlink" href="#montaggio-dell-immagine-di-octopus-sul-lattepanda" title="Permalink to this headline">¶</a></h2>
 <p>Scollegare e ricollegare la USB con l'immagine di octopus e digitare il comando 'dmesg'.
 Il risultato che occorre a noi sta nell'ultima riga e solitamente è sdb1 che rappresenta la nostra chiavetta con l'immagine octopus.
-Procedere quindi con il comando <code class="docutils literal notranslate"><span class="pre">mount</span> <span class="pre">/dev/sdb1/</span>&#160; <span class="pre">/mnt/</span></code> Controllare che nella cartella mnt sia presente la cartella octopus.2020_12_07.img.gz.
-&lt;code&gt;cd /mnt/
-ls&lt;/code&gt;
-Fatto ciò digitiamo il comando &lt;code&gt;gunzip -c /mnt/octopus.2020_12_07.img.gz | dd of=/dev/mmcblk status=progres&lt;/code&gt; Attendiamo il completamento (Tempo stimato: 40 min).
+Procedere quindi con il comando:</p>
+<p><code class="docutils literal notranslate"><span class="pre">mount</span> <span class="pre">/dev/sdb1/</span>&#160; <span class="pre">/mnt/</span></code></p>
+<p>Controllare che nella cartella mnt sia presente la cartella octopus.2020_12_07.img.gz.</p>
+<p><code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">/mnt/</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">ls</span></code></p>
+<p>Fatto ciò digitiamo il comando:</p>
+<p><code class="docutils literal notranslate"><span class="pre">gunzip</span> <span class="pre">-c</span> <span class="pre">/mnt/octopus.2020_12_07.img.gz</span> <span class="pre">|</span> <span class="pre">dd</span> <span class="pre">of=/dev/mmcblk</span> <span class="pre">status=progres</span></code></p>
+<p>Attendiamo il completamento (Tempo stimato: 40 min).
 Terminato il tutto arrestiamo la macchina ( c'è la possibilità che non si riesca ad arrestare nel modo più sicuro in quel caso agire forzatamente staccando l'alimentazione)</p>
-<p>===== Scheda di rete Octopus  =====</p>
+</div>
+<div class="section" id="scheda-di-rete-octopus">
+<h2>Scheda di rete Octopus<a class="headerlink" href="#scheda-di-rete-octopus" title="Permalink to this headline">¶</a></h2>
 <p>Ora non avremo più bisogno delle USB con le immagini e se tutti i passaggi precedenti sono stati eseguiti con esattezza il Lattepanda si avvierà con l'immagine di Octopus installata.
-Il primo passaggio è sistemare la scheda di rete quindi collegare l'uscita ethernet al nostro pc e seguire questi comandi:</p>
-<p>===== Deploy della versione aggiornata  =====
-Dopo il reboot dobbiamo usare il nostro pc per deployare la versione aggiornata di octopus.
+Il primo passaggio è sistemare la scheda di rete quindi collegare l'uscita ethernet al nostro pc e seguire questi comandi:
+L'immagine di octopus ha una scheda di rete che non corrisponde a quella del Lattepanda quindi bisogna sostituire con quella attuale mostrata attraverso il comando:</p>
+<p><code class="docutils literal notranslate"><span class="pre">ip</span> <span class="pre">a</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">mv</span> <span class="pre">ifcfg-(old)</span> <span class="pre">ifcfg-(new)</span></code></p>
+<p>Al suo interno modificare tutti i valori della vecchia scheda di rete con quella nuova che visualiziamo nel titolo del nano</p>
+<p><code class="docutils literal notranslate"><span class="pre">nano</span> <span class="pre">ifcfg-(new)</span></code></p>
+<p>Il comando seguente potrebbe essere necessario eseguirlo due volte:</p>
+<p><code class="docutils literal notranslate"><span class="pre">ifdown</span> <span class="pre">enx00...</span> <span class="pre">&amp;&amp;</span> <span class="pre">ifup</span> <span class="pre">enx00...</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">reboot</span></code></p>
+</div>
+<div class="section" id="deploy-della-versione-aggiornata">
+<h2>Deploy della versione aggiornata<a class="headerlink" href="#deploy-della-versione-aggiornata" title="Permalink to this headline">¶</a></h2>
+<p>Dopo il reboot dobbiamo usare il nostro pc per deployare la versione aggiornata di octopus.
 Per prima cosa dobbiamo andare in Impostazioni -&gt; Network -&gt; Impostazioni -&gt; IPv4
 Da qui dobbiamo cambiare il metodo  in manuale e inserire un IP appartenente alla stessa sottorete dell'octopus che di default ha l'IP 172.16.0.199.
-Il primo passaggio è accettare la fingerprint del Lattepanda nei known hosts del nostro pc attraverso questo comando
-&lt;code&gt;ssh-keyscan -H (IP del Lattepanda) &gt;&gt; ~/.ssh/known_hosts &lt;/code&gt;
-Recarsi quindi nella directory master del nostro progetto e eseguire il comando:
-&lt;code&gt;./deploy_x86.sh CSW0ct0pus1557 (IP della scheda di rete del Lattepanda)  22 &lt;/code&gt;
-A questo punto eseguiamo il reboot del Lattepanda.</p>
-<p>===== Migrate e Seed =====
-Il primo passo è recarsi nella directory esatta:
-&lt;code&gt; cd /usr/local/crossover_octopus_core/webserver/www &lt;/code&gt;
-Da qui possiamo eseguire i comandi per i migrate e i seed:
-&lt;code&gt;bin/cake deploy migrate --createdb --coreplugins
-bin/cake deploy seed --coreplugins&lt;/code&gt;
-In questo caso ho fatto il migrate e il seed solo dei plugins necessari al funzionamento del nostro sistema nel caso volessimo aggiungere dei pugins al di fuori di quelli core possiamo aggiungere in fondo al comando - -add (nomedelplugin) , (nomedelplugin)... esempio:
-&lt;code&gt;bin/cake deploy migrate --createdb --add PipelineIndustry
-bin/cake deploy seed --add PipelineIndustry&lt;/code&gt;</p>
+Sucessivamente bisogna accettare la fingerprint del Lattepanda nei known hosts del nostro pc attraverso questo comando:</p>
+<p><code class="docutils literal notranslate"><span class="pre">ssh-keyscan</span> <span class="pre">-H</span> <span class="pre">(IP</span> <span class="pre">del</span> <span class="pre">Lattepanda)</span> <span class="pre">&gt;&gt;</span> <span class="pre">~/.ssh/known_hosts</span></code></p>
+<p>Recarsi quindi nella directory master del nostro progetto e eseguire il comando:</p>
+<p><code class="docutils literal notranslate"><span class="pre">./deploy_x86.sh</span> <span class="pre">CSW0ct0pus1557</span> <span class="pre">(IP</span> <span class="pre">della</span> <span class="pre">scheda</span> <span class="pre">di</span> <span class="pre">rete</span> <span class="pre">del</span> <span class="pre">Lattepanda)</span>&#160; <span class="pre">22(porta)</span></code></p>
+<p>A questo punto eseguiamo il reboot del Lattepanda.</p>
+</div>
+<div class="section" id="migrate-e-seed">
+<h2>Migrate e Seed<a class="headerlink" href="#migrate-e-seed" title="Permalink to this headline">¶</a></h2>
+<p>Il primo passo è recarsi nella directory esatta:</p>
+<p><code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">/usr/local/crossover_octopus_core/webserver/www</span></code></p>
+<p>Da qui possiamo eseguire i comandi per i migrate e i seed:</p>
+<p><code class="docutils literal notranslate"><span class="pre">bin/cake</span> <span class="pre">deploy</span> <span class="pre">migrate</span> <span class="pre">--createdb</span> <span class="pre">--coreplugins</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">bin/cake</span> <span class="pre">deploy</span> <span class="pre">seed</span> <span class="pre">--coreplugins</span></code></p>
+<p>In questo caso ho fatto il migrate e il seed solo dei plugins necessari al funzionamento del nostro sistema nel caso volessimo aggiungere dei pugins al di fuori di quelli core possiamo aggiungere in fondo al comando - -add (nomedelplugin) , (nomedelplugin)... esempio:</p>
+<p><code class="docutils literal notranslate"><span class="pre">bin/cake</span> <span class="pre">deploy</span> <span class="pre">migrate</span> <span class="pre">--createdb</span> <span class="pre">--add</span> <span class="pre">PipelineIndustry</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">bin/cake</span> <span class="pre">deploy</span> <span class="pre">seed</span> <span class="pre">--add</span> <span class="pre">PipelineIndustry</span></code></p>
+</div>
 </div>
 
 
           </div>
-          
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-<h1 class="logo"><a href="../index.html">TestDocumentation</a></h1>
+<h1 class="logo"><a href="../contents.html">TestDocumentation</a></h1>
 
 
 
@@ -100,38 +118,26 @@ bin/cake deploy seed --add PipelineIndustry&lt;/code&gt;</p>
 
 
 <h3>Navigation</h3>
-<p class="caption"><span class="caption-text">Contents:</span></p>
-<ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">DEPLOY</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#preparazione-lattepanda">Preparazione Lattepanda</a></li>
-</ul>
 
 <div class="relations">
 <h3>Related Topics</h3>
 <ul>
-  <li><a href="../index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="../index.html" title="previous chapter">Welcome to TestDocumentation's documentation!</a></li>
+  <li><a href="../contents.html">Documentation overview</a><ul>
   </ul></li>
 </ul>
 </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3 id="searchlabel">Quick search</h3>
+  <h3>Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" />
       <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
     </form>
     </div>
 </div>
-<script>$('#searchbox').show(0);</script>
-
-
-
-
-
-
-
-
+<script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -140,8 +146,8 @@ bin/cake deploy seed --add PipelineIndustry&lt;/code&gt;</p>
       &copy;2021, DavideCavagnini.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.4.3</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.8</a>
       
       |
       <a href="../_sources/pages/Deploy.rst.txt"
