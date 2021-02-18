@@ -60,7 +60,7 @@ L'immagine di octopus ha una scheda di rete che non corrisponde a quella del Lat
 
 Al suo interno modificare tutti i valori della vecchia scheda di rete con quella nuova che visualiziamo nel titolo del nano
 
-  ``nano ifcfg-(new)``
+``nano ifcfg-(new)``
   
 Il comando seguente potrebbe essere necessario eseguirlo due volte:
 
